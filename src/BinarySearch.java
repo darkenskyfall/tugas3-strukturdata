@@ -1,49 +1,34 @@
-// Java implementation of iterative Binary Search
-class BinarySearch {
-    // Returns index of x if it is present in arr[l....r], else return -1
-    int binarySearch(int arr[], int l, int r, int x)
-    {
-        while (l <= r) {
-            int mid = (l + r) / 2;
+public class BinarySearch {
 
-            // If the element is present at the
-            // middle itself
-            if (arr[mid] == x) {
-                return mid;
+    public static int binarySearch(int[] array, int target) {
+        int left = 0;
+        int right = array.length - 1;
 
-                // If element is smaller than mid, then
-                // it can only be present in left subarray
-                // so we decrease our r pointer to mid - 1
-            } else if (arr[mid] > x) {
-                r = mid - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
 
-                // Else the element can only be present
-                // in right subarray
-                // so we increase our l pointer to mid + 1
+            if (array[mid] == target) {
+                return mid; // Element found, return its index
+            } else if (array[mid] < target) {
+                left = mid + 1; // Target is in the right half
             } else {
-                l = mid + 1;
+                right = mid - 1; // Target is in the left half
             }
         }
 
-        // We reach here when element is not present
-        // in array
-        return -1;
+        return -1; // Element not found
     }
 
-    // Driver method to test above
-    public static void main(String args[])
-    {
-        BinarySearch ob = new BinarySearch();
+    public static void main(String[] args) {
+        int[] sortedArray = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int targetElement = 7;
 
-        int arr[] = { 2, 3, 4, 10, 40 };
-        int n = arr.length;
-        int x = 10;
-        int result = ob.binarySearch(arr, 0, n - 1, x);
+        int result = binarySearch(sortedArray, targetElement);
 
-        if (result == -1)
-            System.out.println("Element not present");
-        else
-            System.out.println("Element found at index "
-                    + result);
+        if (result != -1) {
+            System.out.println("Element found at index: " + result);
+        } else {
+            System.out.println("Element not found in the array.");
+        }
     }
 }
